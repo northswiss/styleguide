@@ -1,0 +1,67 @@
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Graphik Web', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 18px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #1396e4;
+  counter-reset: section;
+}
+
+.content {
+  position: relative;
+  margin: 35px auto;
+  padding: 5px 30px;
+  max-width: 100%;
+  width: 50rem;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  z-index: -1;
+  border-radius: 3px;
+  transform: rotateZ(1deg);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  margin: 2em 0;
+  text-align: center;
+}
+
+h2 {
+  counter-reset: subsection;
+}
+
+h2::before {
+  counter-increment: section;
+  content: counter(section) ". ";
+}
+
+h3 {
+  counter-reset: subsubsection;
+}
+
+h3::before {
+  counter-increment: subsection;
+  content: counter(section) "." counter(subsection) ". ";
+}
+
+h4::before {
+  counter-increment: subsubsection;
+  content: counter(section) "." counter(subsection) "." counter(subsubsection) ". ";
+}
+
+pre {
+  line-height: 1;
+}

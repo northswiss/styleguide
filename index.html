@@ -2,9 +2,166 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Styleguide</title>
+    <title>Travelperk Style Guide</title>
+    <link rel="stylesheet" href="./style.css">
   </head>
   <body>
-    Hello
+    <div class="content">
+      <h1>The TravelPerk Style Guide</h1>
+
+      <div id="toc"></div>
+
+      <h2>Introduction</h2>
+
+      <p>
+      This docment is a guide on how to write React applications at TravelPerk.
+      </p>
+
+      <h2>How to Setup a Project</h2>
+
+      <p>
+      Create you React projects using <em><a href="https://github.com/facebookincubator/create-react-app">Create React App</a></em> this will give you a solid starting point and free upgrades.
+      Don't <a href="https://github.com/facebookincubator/create-react-app#converting-to-a-custom-setup">eject</a> unless you have a good reason for doing so.
+      If you want to eject check with the rest of the team first.
+      </p>
+
+      <h3>Additional Tools</h3>
+
+      <p>
+      Once you have your project setup with Create React App you will still need some extra configuration.
+      </p>
+
+      <h4>Node.js and npm</h4>
+
+      <p>
+      Make sure your specify your <a href="https://nodejs.org/en/">Node.js</a> version in an <code>.nvmrc</code> for <a href="https://github.com/creationix/nvm">nvm</a> users.
+      </p>
+      <p>
+      Try to use <a href="https://www.npmjs.com/"><code>npm</code></a> over <a href="https://yarnpkg.com/lang/en/"><code>yarn</code></a>. They are both great package managers but
+      keeping the same version of <code>npm</code> among all developers in a team is easier than doing the same with <code>yarn</code>.
+      </p>
+
+      <h4>Flow</h4>
+
+      <p>
+      We try to type-check all our JavaScript files using <a href="https://flow.org/">Flow</a>. To install Flow you can simply follow the <a href="https://flow.org/en/docs/install/">installation guide</a>.
+      </p>
+
+      <p>
+      It's recommended that you execute <a href="https://github.com/flowtype/flow-typed"><code>flow-typed</code></a> after you setup Flow and every time you install, remove or update a node module.
+      </p>
+
+      <h4>Prettier</h4>
+
+      <p>
+      Instead of having an extensive style guide dissecting where to put each and every white space we prefer to use <a href="https://github.com/prettier/prettier">Prettier</a> for automatically format the code.
+      </p>
+
+      <p>
+      Make sure  you follow the <a href="https://github.com/prettier/prettier#pre-commit-hook-for-changed-files">official documentation</a> so that Prettier runs automatically for every new commit.
+      </p>
+
+      <h3>Folder Structure</h3>
+
+      <p>
+      Follow the folder structure made by Create React App as much as possible. That means keeping all your configuration files in the root folder and all the code in <code>src</code>.
+      </p>
+
+      <p>
+      Inside <code>src/</code> you're going to have a structure similar to the following:
+      <pre>
+src
+├── api
+├── app
+│   ├── App.js
+│   ├── screens
+│   │   ├── Login
+│   │   └── Settings
+│   │       └── screens
+│   │           ├── Addresses
+│   │           │   └── components
+│   │           └── Users
+│   │               └── components
+│   └── shared
+│       └── Header
+├── styles
+├── types
+├── utils
+├── index.js
+└── setupTests.js
+      </pre>
+      <p>
+
+      <dl>
+        <dt><code>api/</code></dt>
+        <dd>
+        Contains all the modules that make API requests
+        </dd>
+        <dt><code>app/</code></dt>
+        <dd>
+        Contains the whole app
+        </dd>
+        <dt><code>styles/</code></dt>
+        <dd>
+        Contains JavaScript modules with styling information. This folder may not be needed for some projects.
+        </dd>
+        <dt><code>types/</code></dt>
+        <dd>
+        Contains the Flow definitions for types that are not specified by <code>flow-typed</code>.
+        </dd>
+        <dt><code>utils/</code></dt>
+        <dd>
+        Any utility module goes here.
+        </dd>
+        <dt><code>index.js</code></dt>
+        <dd>
+        The main JavaScript files that bootstraps the whole application
+        </dd>
+        <dt><code>setupTests.js</code></dt>
+        <dd>
+        A file that gets executed before the tests are launched.
+        </dd>
+      </dl>
+
+      <p>
+      All the static files that are not imported via JavaScript&mdash;e.g. <code>index.html</code>, favicons&mdash;are placed in the <code>public/</code> folder.
+      </p>
+
+      <h2>Code Style</h2>
+
+      <p>
+      As said code formatting is left to Prettier, there are also some <a href="http://eslint.org/">ESLint</a> rules that are automatically set by Create React App. At the time of writing
+      is not possible to configure custom ESLint rules without ejecting from Create React App.
+      </p>
+
+      <p>
+      Following some advices on how to write JavaScript code so that is more readable.
+      </p>
+
+      <ul>
+        <li>Prefer <code>const</code> over <code>let</code>. Code written with constants is often more readable</li>
+        <li>
+          Never use comments to describe what the code is doing.
+          The code should be easy to read and understand, comments are good to explain why you wrote code is a certain why but not to clarify what's going on in the program.
+          Consider the following examples.
+
+          <script src="https://gist.github.com/Gpx/59ce150791db7c354fef717faefee87e.js"></script>
+        </li>
+      </ul>
+
+      <h2>How to Write a Component</h2>
+
+      <h3>Containers Components</h3>
+
+      <h3>Presentational Components</h3>
+
+      <h2>How to Style</h2>
+
+      <h2>How to Test</h2>
+
+      <h2>Flow and Data Types</h2>
+    </div>
+
+    <script src="./main.js"></script>
   </body>
 </html>
