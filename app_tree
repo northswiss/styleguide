@@ -1,0 +1,5 @@
+graph {
+  App -- {Settings Trips};
+
+  Settings -- {Offices Users};
+}

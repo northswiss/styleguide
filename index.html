@@ -54,12 +54,14 @@
       <h4>Prettier</h4>
 
       <p>
-      Instead of having an extensive style guide dissecting where to put each and every white space we prefer to use <a href="https://github.com/prettier/prettier">Prettier</a> for automatically format the code.
+      Instead of having an extensive style guide dissecting where to put each and every white space we prefer to use <a href="https://github.com/prettier/prettier">Prettier</a> for automatic code formatting.
       </p>
 
       <p>
-      Make sure  you follow the <a href="https://github.com/prettier/prettier#pre-commit-hook-for-changed-files">official documentation</a> so that Prettier runs automatically for every new commit.
+      Make sure  you follow the <a href="https://github.com/prettier/prettier#pre-commit-hook">official documentation</a> so that Prettier runs automatically for every new commit.
       </p>
+
+      <h4>Codeship</h4>
 
       <h3>Folder Structure</h3>
 
@@ -69,28 +71,9 @@
 
       <p>
       Inside <code>src/</code> you're going to have a structure similar to the following:
-      <pre>
-src
-├── api
-├── app
-│   ├── App.js
-│   ├── screens
-│   │   ├── Login
-│   │   └── Settings
-│   │       └── screens
-│   │           ├── Addresses
-│   │           │   └── components
-│   │           └── Users
-│   │               └── components
-│   └── shared
-│       └── Header
-├── styles
-├── types
-├── utils
-├── index.js
-└── setupTests.js
-      </pre>
-      <p>
+      </p>
+
+      <script src="https://gist.github.com/Gpx/5e6282929d9a8a18d29a86fe7c207b73.js"></script>
 
       <dl>
         <dt><code>api/</code></dt>
@@ -135,14 +118,14 @@ src
       </p>
 
       <p>
-      Following some advices on how to write JavaScript code so that is more readable.
+      Here are some advices on how to write JavaScript code so that is more readable.
       </p>
 
       <ul>
         <li>Prefer <code>const</code> over <code>let</code>. Code written with constants is often more readable</li>
         <li>
           Never use comments to describe what the code is doing.
-          The code should be easy to read and understand, comments are good to explain why you wrote code is a certain why but not to clarify what's going on in the program.
+          The code should be easy to read and understand, comments are a good tool to explain why you wrote code in a certain way but not to clarify what's going on in the program.
           Consider the following examples.
 
           <script src="https://gist.github.com/Gpx/59ce150791db7c354fef717faefee87e.js"></script>
@@ -151,9 +134,138 @@ src
 
       <h2>How to Write a Component</h2>
 
-      <h3>Containers Components</h3>
+      <p>
+      There are two different kinds of components: Containers and Presentational—sometimes also called Smart and Dumb. You can read more about them <a href="https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0">here</a>.
+      </p>
 
       <h3>Presentational Components</h3>
+
+      </p>
+      Presentational Components are the easiest ones. Ideally all they do is to take some data in—via <code>props</code>—and render it on the screen.
+      A Presentational Component might have an internal state (e.g. if it handles an input element) but it should never communicate directly with the server.
+      </p>
+
+      <p>
+      If possible create your Presentational Components using a functional component:
+      </p>
+
+      <script src="https://gist.github.com/Gpx/b7e8ecfa22a42a5a91796129ef7f1870.js"></script>
+
+      <p>
+      <em>
+        Note: we're going to use Flow in all the examples. If you're not sure how to use it feel free to skip Flow's chapter.
+      </em>
+      </p>
+
+      <p>
+      If you need helper methods simply create them in the same file or import them from a module.
+      </p>
+
+      <script src="https://gist.github.com/Gpx/c1939ca3390497f27eede6a9f6d7401e.js"></script>
+
+      <p>
+      It's OK to have several presentational components. In fact a good React application is made of many small components rather than few huge ones.
+      Small components are easier to write, test and maintain. Do not worry about performance issues when creating a big rendering tree.
+      Performance can be improved quite easily, especially if the code is well written.
+      </p>
+
+      <h3>Container Components</h3>
+
+      <p>
+      Containers Components take care of everything that is not strictly visual:
+      </p>
+      <ul>
+        <li>Fetching data</li>
+        <li>Handling the internal state of the application</li>
+        <li>Notifying the server about updates</li>
+        <li>Routing</li>
+      </ul>
+      <p>
+      Every app has at least one Container called <code>&lt;App&gt;</code>.
+      </p>
+
+      <p>
+      A container is defined as a <code>class</code> because it has to hold an internal state.
+      </p>
+
+      <script src="https://gist.github.com/Gpx/c3b7e3d46ea7eb88ca624df6bfc13063.js"></script>
+
+      <p>
+      In the previous example we created a container called <code>&lt;MyPageContainer&gt;</code> and initialized its state to hold some users.
+      </p>
+      <p>
+      The container is rendering <code>&lt;MyPage&gt;</code> which is a presentational component.
+      </p>
+      <p>
+      As you can see <code>users</code> is initially <code>null</code> because we have to fetch the users from the server. Let's do it now.
+      </p>
+
+      <script src="https://gist.github.com/Gpx/431e000265be119f8af0484b01d2d8dc.js"></script>
+
+      <p>
+      Here we use <a href="https://facebook.github.io/react/docs/react-component.html#componentdidmount"><code>componentDidMount</code></a> to initiate the fetch.
+      The <code>fetchUser</code> method is pretty straightforward, it loads the users and saves them in the state.
+      </p>
+
+      <p>
+      Note that <code>componentDidMount</code> can initiate more than one fetch at the time.
+      </p>
+
+      <p>
+      Lastly, we updated the <code>render</code> method so that it returns a <code>&lt;Loading&gt;</code> component while <code>users</code> is <code>null</code>.
+      </p>
+
+      <h4>Containers Inside Containers</h4>
+
+      <p>
+      Roughly speaking each container represents one segment in your URL path. For example, if your users visit <code>/settings/users</code> three container components will
+      be activated: <code>&lt;App&gt;</code>, <code>&lt;SettingsContainer&gt;</code> and <code>&lt;UsersContainer&gt;</code>.
+      </p>
+
+      <p>
+      The important thing is that all the containers have separate purposes. In our case, since <code>&lt;App&gt;</code> is loading the logged in user there's no need to fetch it
+      again in <code>&lt;UsersContainer&gt;</code>.
+      </p>
+
+      <p>
+      Make sure your folder structure maps the hierarchy in the containers.
+      </p>
+
+      <script src="https://gist.github.com/Gpx/c11e5cffa259a8f0f8350ff6605977dd.js"></script>
+
+      <h4>Where to Put the Data</h4>
+
+      <p>
+      Given that your application is structured like a tree you want to store your data as close as possible to the leafs but avoiding repetition.
+      </p>
+
+      <p>
+      Say your app has the following structure:
+      </p>
+
+      <img src="./app_tree.jpeg">
+
+      <p>
+      Here, each node represents a container. The current logged user will potentially be used by all the components so we'll store it in <code>&lt;App&gt;</code>'s state.
+      </p>
+
+      <p>
+      On the other hand, the list of offices will only be used by <code>&lt;Offices&gt;</code>, so we'll keep it there.
+      </p>
+
+      <h3>Communicate Between Components</h3>
+
+      <p>
+      Communication between components is unidirectional. A father will pass data down to its children via props. If a child needs to notify one of its ancestors
+      it'll have to do that using a function passed as a prop.
+      </p>
+
+      <script src="https://gist.github.com/Gpx/fa2d93b17093a77fea6d14820b30be32.js"></script>
+
+      <p>
+      In the previous example you can see how <code>&lt;Child&gt;</code> receives <code>flag</code> from its parent and can also notify <code>&lt;Father&gt;</code> that
+      a click happened using the <code>onFlagChange</code> function.
+      </p>
 
       <h2>How to Style</h2>
 
