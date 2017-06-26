@@ -61,7 +61,7 @@ code {
 
 .disclaimer::before {
   position: absolute;
-  content: "Disclaimer";
+  content: "⚠️ Disclaimer";
   top: -1.5em;
   padding: 0 5px;
   background: white;
