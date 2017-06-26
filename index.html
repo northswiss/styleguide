@@ -9,7 +9,7 @@
     <div class="content">
       <h1>The TravelPerk Style Guide</h1>
 
-      <div class="disclaimer">
+      <div class="disclaimer" data-title="Disclaimer">
         This guide is a living document, expect it to change with time. Keep an eye on it to be up-to-date with our development practices.
       </div>
 
@@ -32,13 +32,13 @@
       <h3>Additional Tools</h3>
 
       <p>
-      Once you have your project setup with Create React App you will still need some extra configuration.
+      Once you have your project setup with Create React App, you will still need some extra configuration.
       </p>
 
       <h4>Node.js and npm</h4>
 
       <p>
-      Make sure your specify your <a href="https://nodejs.org/en/">Node.js</a> version in an <code>.nvmrc</code> for <a href="https://github.com/creationix/nvm">nvm</a> users.
+      Make sure you specify your <a href="https://nodejs.org/en/">Node.js</a> version in an <code>.nvmrc</code> file for <a href="https://github.com/creationix/nvm">nvm</a> users.
       </p>
       <p>
       Try to use <a href="https://www.npmjs.com/"><code>npm</code></a> over <a href="https://yarnpkg.com/lang/en/"><code>yarn</code></a>. They are both great package managers but
@@ -48,17 +48,21 @@
       <h4>Flow</h4>
 
       <p>
-      We try to type-check all our JavaScript files using <a href="https://flow.org/">Flow</a>. To install Flow you can simply follow the <a href="https://flow.org/en/docs/install/">installation guide</a>.
+      We try to type-check all our JavaScript files using <a href="https://flow.org/">Flow</a>. To install Flow, you can simply follow the <a href="https://flow.org/en/docs/install/">installation guide</a>.
       </p>
 
       <p>
-      It's recommended that you execute <a href="https://github.com/flowtype/flow-typed"><code>flow-typed</code></a> after you setup Flow and every time you install, remove or update a node module.
+      It's important that you execute <a href="https://github.com/flowtype/flow-typed"><code>flow-typed</code></a> after you setup Flow and every time you install, remove or update a node module.
       </p>
+
+      <div class="idea" data-title="Idea">
+        It would be useful if we could configure npm to run <code>flow-typed</code> automatically every time our modules list gets updated.
+      </div>
 
       <h4>Prettier</h4>
 
       <p>
-      Instead of having an extensive style guide dissecting where to put each and every white space we prefer to use <a href="https://github.com/prettier/prettier">Prettier</a> for automatic code formatting.
+      Instead of having an extensive style guide dissecting where to put every white space we prefer to use <a href="https://github.com/prettier/prettier">Prettier</a> for automatic code formatting.
       </p>
 
       <p>
@@ -66,6 +70,8 @@
       </p>
 
       <h4>Codeship</h4>
+
+      <p>TBD</p>
 
       <h3>Folder Structure</h3>
 
@@ -117,9 +123,12 @@
       <h2>Code Style</h2>
 
       <p>
-      As said code formatting is left to Prettier, there are also some <a href="http://eslint.org/">ESLint</a> rules that are automatically set by Create React App. At the time of writing
-      is not possible to configure custom ESLint rules without ejecting from Create React App.
+      As said we leave code formatting to Prettier, there are also some <a href="http://eslint.org/">ESLint</a> rules that are automatically set by Create React App.
       </p>
+
+      <div class="disclaimer" data-title="Warning">
+      At the time of writing is not possible to configure custom ESLint rules without ejecting from Create React App.
+      </div>
 
       <p>
       Here are some advices on how to write JavaScript code so that is more readable.
@@ -128,9 +137,9 @@
       <ul>
         <li>Prefer <code>const</code> over <code>let</code>. Code written with constants is often more readable</li>
         <li>
-          Never use comments to describe what the code is doing.
-          The code should be easy to read and understand, comments are a good tool to explain why you wrote code in a certain way but not to clarify what's going on in the program.
-          Consider the following examples.
+          Never use comments to describe what your program is doing. The code should be easy to read and understand.
+          Comments are a useful tool to explain why you wrote a portion of your program in a certain way but not to clarify what's going on in the program.
+          Even worse, if you update your code the comments no longer describe your logic. Consider the following examples.
 
           <script src="https://gist.github.com/Gpx/59ce150791db7c354fef717faefee87e.js"></script>
         </li>
@@ -145,8 +154,8 @@
       <h3>Presentational Components</h3>
 
       </p>
-      Presentational Components are the easiest ones. Ideally all they do is to take some data in—via <code>props</code>—and render it on the screen.
-      A Presentational Component might have an internal state (e.g. if it handles an input element) but it should never communicate directly with the server.
+      Presentational Components are the easiest ones. Ideally, all they do is to take some data in—via <code>props</code>—and render it on the screen.
+      A Presentational Component might have an internal state (e.g. if it handles an input element), but it should never communicate directly with the server.
       </p>
 
       <p>
@@ -155,23 +164,24 @@
 
       <script src="https://gist.github.com/Gpx/b7e8ecfa22a42a5a91796129ef7f1870.js"></script>
 
-      <p>
-      <em>
-        Note: we're going to use Flow in all the examples. If you're not sure how to use it feel free to skip Flow's chapter.
-      </em>
-      </p>
+      <div class="info" data-title="Note">
+        We're going to use Flow in all the examples. If you're not sure how to use it feel free to skip Flow's chapter.
+      </div>
 
       <p>
-      If you need helper methods simply create them in the same file or import them from a module.
+      If you need helper methods, just create them in the same file or import them from a module.
       </p>
 
       <script src="https://gist.github.com/Gpx/c1939ca3390497f27eede6a9f6d7401e.js"></script>
 
       <p>
-      It's OK to have several presentational components. In fact a good React application is made of many small components rather than few huge ones.
-      Small components are easier to write, test and maintain. Do not worry about performance issues when creating a big rendering tree.
-      Performance can be improved quite easily, especially if the code is well written.
+      Having several presentational components is OK. In fact, a good React application is made of many small components rather than few huge ones.
+      Small components are easier to write, test and maintain.
       </p>
+
+      <div class="info" data-title="Pro Tip">
+        Do not worry too much about performance issues in the beginning. Fixing slow code will be faster if it's easy to read.
+      </div>
 
       <h3>Container Components</h3>
 
@@ -195,7 +205,7 @@
       <script src="https://gist.github.com/Gpx/c3b7e3d46ea7eb88ca624df6bfc13063.js"></script>
 
       <p>
-      In the previous example we created a container called <code>&lt;MyPageContainer&gt;</code> and initialized its state to hold some users.
+      In the previous example, we created a container called <code>&lt;MyPageContainer&gt;</code> and initialized its state to hold some users.
       </p>
       <p>
       The container is rendering <code>&lt;MyPage&gt;</code> which is a presentational component.
@@ -250,7 +260,7 @@
       <img src="./app_tree.jpeg">
 
       <p>
-      Here, each node represents a container. The current logged user will potentially be used by all the components so we'll store it in <code>&lt;App&gt;</code>'s state.
+      Here, each node represents a container. The currently logged user will potentially be used by all the components, so we'll store it in <code>&lt;App&gt;</code>'s state.
       </p>
 
       <p>
@@ -260,7 +270,7 @@
       <h3>Communicate Between Components</h3>
 
       <p>
-      Communication between components is unidirectional. A father will pass data down to its children via props. If a child needs to notify one of its ancestors
+      Communication between components is unidirectional. A father will pass data down to its children via props. If a child needs to notify one of its ancestors,
       it'll have to do that using a function passed as a prop.
       </p>
 
@@ -280,6 +290,14 @@
       <p>
       If you can't avoid styling use <a href="http://styled-components.com/">styled-components</a>.
       </p>
+
+      <p>
+      Try to avoid hard coding values directly, instead create a <code>variables.js</code> file within <code>src/styles</code>.
+      </p>
+
+      <div class="disclaimer" data-title="Note">
+        <code>tk-components</code> already has a module with our variables defined. Try to use it instead of defining your own values.
+      </div>
 
       <h2>How to Test</h2>
 

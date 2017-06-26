@@ -52,17 +52,43 @@ code {
   border-radius: 5px;
 }
 
-.disclaimer {
+.disclaimer,
+.idea,
+.info {
   position: relative;
   margin: 3em 0;
   padding: 0.5em 0.5em 0 0.5em;
+}
+
+.disclaimer {
   box-shadow: 0 0 0 11px white, 0 0 0 14px #f9bf3b;
 }
 
-.disclaimer::before {
+.idea {
+  box-shadow: 0 0 0 11px white, 0 0 0 14px #00b16a;
+}
+
+.info {
+  box-shadow: 0 0 0 11px white, 0 0 0 14px #1396e4;
+}
+
+.disclaimer::before,
+.idea::before,
+.info::before {
   position: absolute;
-  content: "⚠️ Disclaimer";
   top: -1.5em;
   padding: 0 5px;
   background: white;
+}
+
+.disclaimer::before {
+  content: "⚠️ " attr(data-title);
+}
+
+.idea::before {
+  content: "💡 " attr(data-title);
+}
+
+.info::before {
+  content: "ℹ️ " attr(data-title);
 }
