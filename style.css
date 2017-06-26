@@ -10,7 +10,7 @@ body {
 
 .content {
   position: relative;
-  margin: 35px auto;
+  margin: 0 auto;
   padding: 5px 30px;
   max-width: 100%;
   width: 50rem;
