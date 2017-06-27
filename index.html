@@ -181,7 +181,7 @@
       </p>
 
       <div class="info" data-title="Pro Tip">
-        Do not worry too much about performance issues in the beginning. Fixing slow code will be faster if it's easy to read.
+        Don't worry too much about performance issues in the beginning. Fixing slow code will be faster if it's well written and easy to read.
       </div>
 
       <h3>Container Components</h3>
@@ -289,11 +289,30 @@
       </p>
 
       <p>
+      Before styling a component ask yourself these questions:
+      </p>
+
+      <ol>
+        <li>Can I use one of the existing components?</li>
+        <li>Seriously though, can I use one of the existing components?</li>
+        <li>Can I modify or extend one of the existing components?</li>
+      </ol>
+
+      <p>
+      If you answered <em>no</em> to all the previous questions, talk with your designer to see if it's possible to modify the design to use existing components.
+      If that's not an option, define with the designer what's the best approach: creating a new general component or only one that will be used in your feature.
+      </p>
+
+      <div class="info" data-title="Note">
+        The reason why it's so important to use existing components is that they are battle-tested, ensure visual consistency across the app, and they don't require you to write any custom styles.
+      </div>
+
+      <p>
       If you can't avoid styling use <a href="http://styled-components.com/">styled-components</a>.
       </p>
 
       <p>
-      Try to avoid hard coding values directly, instead create a <code>variables.js</code> file within <code>src/styles</code>.
+      Try not to hard code values directly, instead create a <code>variables.js</code> file within <code>src/styles</code>.
       </p>
 
       <div class="disclaimer" data-title="Note">
