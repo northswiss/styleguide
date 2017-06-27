@@ -48,6 +48,7 @@ h4::before {
 a,
 a:visited {
   color: #1396e4;
+  text-decoration: none;
 }
 
 code {
