@@ -11,7 +11,7 @@
       <h1>The TravelPerk Style Guide</h1>
 
       <div class="disclaimer" data-title="Disclaimer">
-        This guide is a living document, expect it to change with time. Keep an eye on it to be up-to-date with our development practices.
+        This guide is a living document, expect it to change over time. Keep an eye on it to be up-to-date with our latest development practices.
       </div>
 
       <div id="toc"></div>
@@ -26,7 +26,7 @@
 
       <p>
       Create you React projects using <em><a href="https://github.com/facebookincubator/create-react-app">Create React App</a></em> this will give you a solid starting point and free upgrades.
-      Don't <a href="https://github.com/facebookincubator/create-react-app#converting-to-a-custom-setup">eject</a> unless you have a good reason for doing so.
+      Don't <a href="https://github.com/facebookincubator/create-react-app#converting-to-a-custom-setup">eject</a> unless you have a very good reason for doing so.
       If you want to eject check with the rest of the team first.
       </p>
 
@@ -43,7 +43,7 @@
       </p>
       <p>
       Try to use <a href="https://www.npmjs.com/"><code>npm</code></a> over <a href="https://yarnpkg.com/lang/en/"><code>yarn</code></a>. They are both great package managers but
-      keeping the same version of <code>npm</code> among all developers in a team is easier than doing the same with <code>yarn</code>.
+      keeping the same version of <code>npm</code> among the whole team is easier since it's binded to Node.js's version.
       </p>
 
       <h4>Flow</h4>
@@ -64,6 +64,10 @@
 
       <p>
       Instead of having an extensive style guide dissecting where to put every white space we prefer to use <a href="https://github.com/prettier/prettier">Prettier</a> for automatic code formatting.
+      </p>
+
+      <p>
+      We set the following flags for prettier: <code>--no-semi --single-quote --jsx-bracket-same-line=false --trailing-comma=es5 --parser=flow</code>.
       </p>
 
       <p>
@@ -128,7 +132,7 @@
       </p>
 
       <div class="disclaimer" data-title="Warning">
-      At the time of writing is not possible to configure custom ESLint rules without ejecting from Create React App.
+      At the time of writing it is not possible to configure custom ESLint rules without ejecting from Create React App.
       </div>
 
       <p>
@@ -169,13 +173,13 @@
       </p>
 
       <p>
-      If possible create your Presentational Components using a functional component:
+      If possible create your Presentational Components using a functional style:
       </p>
 
       <script src="https://gist.github.com/Gpx/b7e8ecfa22a42a5a91796129ef7f1870.js"></script>
 
       <div class="info" data-title="Note">
-        We're going to use Flow in all the examples. If you're not sure how to use it feel free to skip Flow's chapter.
+        We're going to use Flow in all the examples. If you're not sure how to use it feel free to skip to Flow's chapter.
       </div>
 
       <p>
@@ -228,8 +232,15 @@
 
       <p>
       Here we use <a href="https://facebook.github.io/react/docs/react-component.html#componentdidmount"><code>componentDidMount</code></a> to initiate the fetch.
-      The <code>fetchUser</code> method is pretty straightforward, it loads the users and saves them in the state.
+      The <code>fetchUser</code> method is pretty straightforward, it loads the users and saves them in the state. The reason why we have a separate method for fetching
+      is that it will be easer to test.
       </p>
+
+      <div class="disclaimer" data-title="Warning">
+        Instance methods declared as <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions">arrow functions</a> don't appear in
+        the <code>prototype</code> and can not be mocked during tests. Stick with normal functions and <code>bind</code> them in the <code>constructor</code> like we do
+        in the examples.
+      </div>
 
       <p>
       Note that <code>componentDidMount</code> can initiate more than one fetch at the time.
@@ -260,7 +271,7 @@
       <h4>Where to Put the Data</h4>
 
       <p>
-      Given that your application is structured like a tree you want to store your data as close as possible to the leafs but avoiding repetition.
+      Given that your application is structured like a tree you want to store your data as close as possible to the leafs but at the same time avoid repetition.
       </p>
 
       <p>
@@ -275,6 +286,10 @@
 
       <p>
       On the other hand, the list of offices will only be used by <code>&lt;Offices&gt;</code>, so we'll keep it there.
+      </p>
+
+      <p>
+      With time data might need to be moved, usually from the leafs up to the root. That's normal, if you keep your Flow definitions up-to-date it will be fairly easy to migrate.
       </p>
 
       <h3>Communicate Between Components</h3>
@@ -294,23 +309,27 @@
       <h2>How to Style</h2>
 
       <p>
-      You should avoid styling your components as much as possible. We have various components that provide basic styling such as <code>&lt;Layout&gt;</code> and <code>&lt;Spacer&gt;</code>.
+      You should avoid styling your components as much as possible. We have various components that provide basic styling such as <code>&lt;Layout&gt;</code>, <code>&lt;Spacer&gt;</code> and <code>&lt;Text&gt;</code>.
       </p>
 
       <p>
-      Before styling a component ask yourself these questions:
+      Before styling a component ask yourself three questions:
       </p>
 
       <ol>
         <li>Can I use one of the existing components?</li>
         <li>Seriously though, can I use one of the existing components?</li>
-        <li>Can I modify or extend one of the existing components?</li>
+        <li>Can I extend one of the existing components without breaking the <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">single responsibility principle</a>?</li>
       </ol>
 
       <p>
       If you answered <em>no</em> to all the previous questions, talk with your designer to see if it's possible to modify the design to use existing components.
       If that's not an option, define with the designer what's the best approach: creating a new general component or only one that will be used in your feature.
       </p>
+
+      <div class="disclaimer" data-title="Warning">
+      Make sure developers and designer are always aligned on what new components get created.
+      </div>
 
       <div class="info" data-title="Note">
         The reason why it's so important to use existing components is that they are battle-tested, ensure visual consistency across the app, and they don't require you to write any custom styles.
@@ -324,11 +343,62 @@
       Try not to hard code values directly, instead create a <code>variables.js</code> file within <code>src/styles</code>.
       </p>
 
-      <div class="disclaimer" data-title="Note">
+      <div class="disclaimer" data-title="Warning">
         <code>tk-components</code> already has a module with our variables defined. Try to use it instead of defining your own values.
       </div>
 
       <h2>How to Test</h2>
+
+      We implement two different kind of tests: unit tests and functional tests.
+
+      <h3>Unit Tests</h3>
+
+      <p>
+      Although unit tests differ depending on what you're testing—a Presentational component or a Container—they all share a similar skeleton.
+      </p>
+
+      <script src="https://gist.github.com/Gpx/2f73529f1b0d7b93e7c6e6faee05ec52.js"></script>
+
+      <p>
+      In the previous example we test a generic <code>&lt;Component&gt;</code>. The <a href="http://facebook.github.io/jest/docs/en/api.html#describename-fn"><code>describe</code></a> method is useful for grouping related tests.
+      Remember to add <code>&lt;</code> and <code>&gt;</code> around the component name to signify that it's a React component and not a generic class or function.
+      </p>
+
+      <p>
+      We're running only one <a href="http://facebook.github.io/jest/docs/en/snapshot-testing.html">snapshot test</a> that checks that the component gets rendered.
+      </p>
+
+      <div class="disclaimer" data-title="Warning">
+        Snapshot tests are extremely useful to discover subtle bugs but they must be used in conjunction with other tests. Relying on snapshots only makes your tests hard to read and error prone.
+      </div>
+
+      <p>
+      What's interesting here is the <code>setupComponent</code> method which has three advantages:
+      </p>
+
+      <ol>
+        <li>Defines default props</li>
+        <li>Can find child elements</li>
+        <li>Only method that needs to be updated</li>
+      </ol>
+
+      <p>
+      For the first one, if our component has some props that must be set <code>setupComponent</code> can do that for us:
+      </p>
+
+      <script src="https://gist.github.com/Gpx/5fd6d05b971bc02b1903f84033aa94f7.js"></script>
+
+      <p>
+      <code>setupComponent</code> is also useful to find child components without having the logic in your tests.
+      </p>
+
+      <script src="https://gist.github.com/Gpx/fa8c679c46636652d8de712ece2b1c4e.js"></script>
+
+      <p>
+      Last, if your components updates and it breaks the logic inside <code>setupComponent</code> you only have to fix it there. Compare this to updating all your test cases.
+      </p>
+
+      <h3>Functional Tests</h3>
 
       <h2>Flow and Data Types</h2>
     </div>
