@@ -1,10 +1,14 @@
+:root {
+  --dark-text: #333;
+}
+
 * { box-sizing: border-box; }
 
 body {
   font-family: 'Graphik Web', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 18px;
   line-height: 1.5;
-  color: #333;
+  color: var(--dark-text);
   counter-reset: section;
 }
 
@@ -14,6 +18,10 @@ body {
   padding: 5px 30px;
   max-width: 100%;
   width: 50rem;
+}
+
+#toc > * {
+  display: block;
 }
 
 h1 {
@@ -56,6 +64,15 @@ code {
   padding: 0.2em 0.3em;
   font-size: 0.9em;
   border-radius: 5px;
+}
+
+hr {
+  position: relative;
+  margin: 3em auto;
+  border: none;
+  height: 1px;
+  width: 80%;
+  background-image: linear-gradient(90deg, transparent, var(--dark-text), transparent);
 }
 
 .disclaimer,

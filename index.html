@@ -149,13 +149,13 @@
           <script src="https://gist.github.com/Gpx/59ce150791db7c354fef717faefee87e.js"></script>
         </li>
         <li>
-          Learn <code>Array</code> methods, in particular <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"><code>Array.prototype.filter</code></a>,
-          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find"><code>Array.prototype.find</code></a>,
-          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes"><code>Array.prototype.includes</code></a>,
-          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"><code>Array.prototype.map</code></a>,
-          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach"><code>Array.prototype.forEach</code></a>,
-          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce"><code>Array.prototype.reduce</code></a> and,
-          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some"><code>Array.prototype.some</code></a>. With these methods you'll be able to get rid of loop statements 90% of the time.
+          Learn <code>Array</code> methods, in particular <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"><code>filter</code></a>,
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find"><code>find</code></a>,
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes"><code>includes</code></a>,
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"><code>map</code></a>,
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach"><code>forEach</code></a>,
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce"><code>reduce</code></a> and,
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some"><code>some</code></a>. With these methods you'll be able to get rid of loop statements 90% of the time.
         </li>
       </ul>
 
@@ -354,22 +354,33 @@
       <h3>Unit Tests</h3>
 
       <p>
+      Use <a href="http://facebook.github.io/jest/">Jest</a> to write unit tests and keep the test file in the same folder as the code that is being tested.
+      Name the test file the same as the original file but add the <code>.test</code> suffix. So, if you're testing <code>Component.js</code> you will have
+      <code>Component.test.js</code>.
+      </p>
+
+      <p>
       Although unit tests differ depending on what you're testing—a Presentational component or a Container—they all share a similar skeleton.
       </p>
 
       <script src="https://gist.github.com/Gpx/2f73529f1b0d7b93e7c6e6faee05ec52.js"></script>
 
       <p>
-      In the previous example we test a generic <code>&lt;Component&gt;</code>. The <a href="http://facebook.github.io/jest/docs/en/api.html#describename-fn"><code>describe</code></a> method is useful for grouping related tests.
+      The previous example tests a generic <code>&lt;Component&gt;</code>. The <a href="http://facebook.github.io/jest/docs/en/api.html#describename-fn"><code>describe</code></a> method is useful for grouping related tests.
       Remember to add <code>&lt;</code> and <code>&gt;</code> around the component name to signify that it's a React component and not a generic class or function.
       </p>
 
       <p>
       We're running only one <a href="http://facebook.github.io/jest/docs/en/snapshot-testing.html">snapshot test</a> that checks that the component gets rendered.
+      Note how we use <code>toJson</code> to convert the Enzyme object in a string.
       </p>
 
       <div class="disclaimer" data-title="Warning">
         Snapshot tests are extremely useful to discover subtle bugs but they must be used in conjunction with other tests. Relying on snapshots only makes your tests hard to read and error prone.
+      </div>
+
+      <div class="idea" data-title="Idea">
+        It's possible to configure Enzyme to use <code>enzyme-to-json</code> automatically for all snapshots but at the moment it requires ejecting from <code>create-react-app</code>.
       </div>
 
       <p>
@@ -395,10 +406,101 @@
       <script src="https://gist.github.com/Gpx/fa8c679c46636652d8de712ece2b1c4e.js"></script>
 
       <p>
-      Last, if your components updates and it breaks the logic inside <code>setupComponent</code> you only have to fix it there. Compare this to updating all your test cases.
+      Last, if your component updates and breaks the logic inside <code>setupComponent</code> you only have to fix it there. Compare this to updating all your test cases.
       </p>
 
+      <hr>
+
+      <p>
+      With the basic structure out of the way let's see what should be tested in a component.
+      </p>
+
+      <h4>Render</h4>
+
+      <p>
+      All React components must have a <code>render</code> method. It's important to test that this method returns what we expect.
+      In addition to snapshots we can test that what gets rendered is what we expect.
+      </p>
+
+      <script src="https://gist.github.com/Gpx/149af50ed773e2b53eb1073683ee892e.js"></script>
+
+      <p>
+      Make sure you test all possible outputs for different props configurations. Code coverage can help you figure out if some cases are not tested.
+      </p>
+
+      <h4>Events</h4>
+
+      <p>
+      If a component exposes some props for event handling you need to test that they fire sending the correct data.
+      </p>
+
+      <p>
+      Imagine you're implementing an <code>&lt;Input&gt;</code> component, you want at least to have a <code>onChange</code> to notify about changes.
+      </p>
+
+      <p>
+      This is how you would test it.
+      </p>
+
+      <script src="https://gist.github.com/Gpx/31d88286523e0809bfeb7a7a3eefbd61.js"></script>
+
+      <p>
+      Of course, you need a test for each event prop you have. In our <code>&lt;Input&gt;</code> example we might have to cover <code>onFocus</code>, <code>onBlur</code> etc...
+      </p>
+
+      <p>
+        If the way we call <a href="http://airbnb.io/enzyme/docs/api/ShallowWrapper/simulate.html"><code>simulate</code></a> confuses you check out <a href="https://github.com/airbnb/enzyme/issues/76">this discussion</a> and in particular <a href="https://github.com/airbnb/enzyme/issues/76#issuecomment-189606849">this comment</a>.
+        In a nutshell, we simulate a change event on the HTML <code>&lt;input&gt;</code> element.
+      </p>
+
+      <div class="info" data-title="Pro Tip">
+        When calling <code>simulate</code> you can pass other properties too. One that is often useful is <code>preventDefault</code>.
+      </div>
+
+      <h4>State and State Mutations</h4>
+
+      <p>
+      If your store holds some state you need to test it. First you need to check that your state is correctly initialized.
+      </p>
+
+      <script src="https://gist.github.com/Gpx/208c273e39315f66e3a7779796496622.js"></script>
+
+      <p>
+      Your state will be updated at some point. If it doesn't it can simply be converted as a constant.
+      </p>
+
+      <p>
+      Usually state mutations happen as a result of some other event—user interaction, server response—therefore defer to the other sections of this guide to see how to test these situations.
+      In general though, you want to check that <code>component.state()</code> contains the properties that you expect at any given time.
+      </p>
+
+      <div class="info" data-title="Pro Tip">
+        With enzyme you can not only read the sate but only modify it using <a href="http://airbnb.io/enzyme/docs/api/ShallowWrapper/setState.html"><code>setState</code></a>.
+        This is very useful when you want to set an initial state for your component before testing it.
+      </div>
+
+      <h4>Fetch Calls</h4>
+
+      <p>
+      Each interaction with the server has to be tested.
+      </p>
+
+      <p>
+      Let's say you have a component that renders a button. When the button gets clicked a fetch has to happen. When the fetch is done the state updates.
+      This is how the code for this component might look like.
+      </p>
+
+      <script src="https://gist.github.com/Gpx/86bcc4e203d9de89bd58b8fb110d0f70.js"></script>
+
+      <p>
+      We can now write a test for this feature.
+      </p>
+
+      <script src="https://gist.github.com/Gpx/10f4b48e8c4c087a401914b655009dac.js"></script>
+
       <h3>Functional Tests</h3>
+
+      TBD
 
       <h2>Flow and Data Types</h2>
     </div>
