@@ -589,6 +589,40 @@
       TBD
 
       <h2>Flow and Data Types</h2>
+
+      <p>
+      <a href="https://flow.org/">Flow</a> is an amazing piece of software that can make your life so much easier... when it works.
+      Luckily it's getting better and better and if you follow these rules you should not have big issues.
+      </p>
+
+      <p>
+      Check <em>all</em> your JavaScript files with flow not only React components. To check a file simply add <code>// @flow</code> as the first line.
+      </p>
+
+      <h3>Type Check React Components</h3>
+
+      <p>
+      Refer to the <a href="https://flow.org/en/docs/frameworks/react/">official docs</a> on how to test a React component. One thing to notice is that
+      we use exact types to define props and state. So instead of <code>{ user: User }</code> we write <code>{| user: User |}</code>.
+      </p>
+
+      <h3>Define Types</h3>
+
+      <p>
+      We define all our types is <code>src/types/global.js</code>, although in the future we might decide to split this file in sub-modules.
+      </p>
+
+      <p>
+      These are the convections that we apply.
+      </p>
+
+      <ul>
+        <li>
+          We never export <code>Id</code> since is a very generic type, we prefer to use <a href="https://flow.org/en/docs/types/utilities/#toc-propertytype"><code>$PropertyType&lt;T, x&gt;</code></a>.
+          It doesn't change much from Flow's point of view but makes the code more expressive:
+          <script src="https://gist.github.com/Gpx/0f189450be500e79f57cbe2ce9ebdb50.js"></script>
+        </li>
+      </ul>
     </div>
 
     <script src="./main.js"></script>
