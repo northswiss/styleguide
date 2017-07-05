@@ -20,8 +20,34 @@ body {
   width: 50rem;
 }
 
+#toc {
+  position: relative;
+  border: 1px solid var(--dark-text);
+  padding: 1em 1.5em 0.5em 1.5em;
+  line-height: 2;
+}
+
+#toc::before {
+  content: "TOC";
+  position: absolute;
+  top: -1em;
+  background-color: #fff;
+}
+
+#toc:empty {
+  display: none;
+}
+
 #toc > * {
   display: block;
+}
+
+#toc .level_3 {
+  margin-left: 1em;
+}
+
+#toc .level_4 {
+  margin-left: 2em;
 }
 
 h1 {

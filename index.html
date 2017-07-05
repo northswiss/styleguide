@@ -2,25 +2,54 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Travelperk Style Guide</title>
+    <title>Travelperk Front End Style Guide</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
     <div class="content">
-      <h1>The TravelPerk Style Guide</h1>
-
-      <div class="disclaimer" data-title="Disclaimer">
-        This guide is a living document, expect it to change over time. Keep an eye on it to be up-to-date with our latest development practices.
-      </div>
+      <h1>The TravelPerk Front End Style Guide</h1>
 
       <div id="toc"></div>
 
       <h2>Introduction</h2>
 
       <p>
-      This document is a guide on how to write React applications at TravelPerk.
+      This guide is a living document on how to write React applications at TravelPerk, expect it to change over time. Keep an eye on it to be up-to-date with our latest development practices.
       </p>
+
+      <p>
+      Feel free to link or quote sections of this guide in your pull request reviews.
+      <p>
+
+      <p>
+      If you think parts of the guide are no longer valid or can be improved open a <a href="https://github.com/travelperk/styleguide">pull request</a>
+      and ask the rest of the team to review it.
+      </p>
+
+      <p>
+      The chapters should be read in order. They start with the basic notions to setup a project and go to more advanced concepts.
+      The idea is that if you just joined TravelPerk, after reading this document, you'll be able to work on our front end code.
+      If that's not the case please raise your concerns with the members of your team.
+      </p>
+
+      <hr>
+
+      <p>
+      You will find the following boxes, here's what they mean:
+      </p>
+
+      <div class="info" data-title="Pro Tip">
+        This is a note with some helpful tips.
+      </div>
+
+      <div class="idea" data-title="Idea">
+        This is an idea of a possible improvement to our setup. Feel free to work on it if you have the time.
+      </div>
+
+      <div class="disclaimer" data-title="Warning">
+        This is a warning, keep an eye on this for common errors or possible bad practices.
+      </div>
 
       <h2>How to Setup a Project</h2>
 
@@ -78,6 +107,12 @@
 
       <p>TBD</p>
 
+      <h4>Others</h4>
+
+      <p>
+      If you are on a Mac Jest watch mode might not be working for you. You can fix it by installing or upgrading <a href="https://github.com/facebook/jest/issues/1767#issuecomment-248883102">watchman</a>.
+      </p>
+
       <h3>Folder Structure</h3>
 
       <p>
@@ -131,8 +166,8 @@
       As said we leave code formatting to Prettier, there are also some <a href="http://eslint.org/">ESLint</a> rules that are automatically set by Create React App.
       </p>
 
-      <div class="disclaimer" data-title="Warning">
-      At the time of writing it is not possible to configure custom ESLint rules without ejecting from Create React App.
+      <div class="idea" data-title="Idea">
+      At the time of writing it looks as if it is not possible to configure custom ESLint rules without ejecting from Create React App.
       </div>
 
       <p>
@@ -415,6 +450,11 @@
       With the basic structure out of the way let's see what should be tested in a component.
       </p>
 
+      <div class="idea" data-title="Idea">
+        <code>setupComponent</code> and a lot of the patters you'll see alter are used over and over throughout the codebase.
+        It would be useful to extract some of the logic to a helper library.
+      </div>
+
       <h4>Render</h4>
 
       <p>
@@ -497,6 +537,52 @@
       </p>
 
       <script src="https://gist.github.com/Gpx/10f4b48e8c4c087a401914b655009dac.js"></script>
+
+      <p>
+      As you can see, the test is divided in two. We first test that once the button is clicked the fetch is performed. Then, we check that when the fetch is called the status is updated accordingly.
+      </p>
+
+      <p>
+      The reason for this is simple, our test need to know when the promise resolve, to do this we need to have the promise. In order for that to happen we need to call the event handler directly.
+      </p>
+
+      <p>
+      There are two new things in the test example above. The first one is <a href="https://facebook.github.io/jest/docs/en/jest-object.html#jestspyonobject-methodname"><code>jest.spyOn</code></a>
+      that takes one method in an object and coverts it into a spy. Notice how at the end of the test <a href="https://facebook.github.io/jest/docs/en/mock-function-api.html#mockfnmockrestore"><code>mockRestore</code></a>
+      is called to restore the method at its original state. If you fail to do that some of your other tests might fail.
+      </p>
+
+      <p>
+      The second new item is at the very top of the file and is <a href="https://facebook.github.io/jest/docs/en/jest-object.html#jestmockmodulename-factory-options"><code>jest.mock</code></a>.
+      What it does, is taking a module and replacing it with a mocked version of it. In this way we know when the API function would have been called. Also, we avoid real calls to the server.
+      </p>
+
+      <div class="disclaimer" data-title="Warning">
+        Make sure your unit tests never really contact the server, otherwise they'll be slow, might randomly fail and will flood the server with requests.
+      </div>
+
+      <hr>
+
+      <p>
+      There's another frequent use case when a container might want to contact the server, at loading time. This is done inside the <code>componentDidMount</code> life cycle method.
+      The pattern is very similar, what changes is the way you trigger the call. You can't use <code>simulate</code> for lifecycle events.
+      </p>
+
+      <p>
+      Enzyme does not fire life cycle methods when you use <code>shallow</code> (although it might in the near future <a href="https://github.com/airbnb/enzyme/pull/789">#789</a>)
+      therefore you have to use <a href="http://airbnb.io/enzyme/docs/api/mount.html"><code>mount</code></a>.
+      </p>
+
+      <script src="https://gist.github.com/Gpx/f588ac2c2e384272cc3255f0d88f864e.js"></script>
+
+      <p>
+      The only difference here is in <code>setupComponent</code> which accepts a second optional parameter <code>mounter</code>. If you want life cycle events methods to be called
+      you can simply pass <code>mount</code> instead of the default <code>shallow</code>.
+      </p>
+
+      <div class="idea" data-title="Idea">
+        <code>mount</code> performs a full DOM rendering which is slower and more error prone. It would be useful to have a way to get life cycle events while using <code>shallow</code>.
+      </div>
 
       <h3>Functional Tests</h3>
 
