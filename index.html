@@ -330,14 +330,14 @@
       <h3>Communicate Between Components</h3>
 
       <p>
-      Communication between components is unidirectional. A father will pass data down to its children via props. If a child needs to notify one of its ancestors,
+      Communication between components is unidirectional. A parent will pass data down to its children via props. If a child needs to notify one of its ancestors,
       it'll have to do that using a function passed as a prop.
       </p>
 
       <script src="https://gist.github.com/Gpx/fa2d93b17093a77fea6d14820b30be32.js"></script>
 
       <p>
-      In the previous example you can see how <code>&lt;Child&gt;</code> receives <code>flag</code> from its parent and can also notify <code>&lt;Father&gt;</code> that
+      In the previous example you can see how <code>&lt;Child&gt;</code> receives <code>flag</code> from its parent and can also notify <code>&lt;Parent&gt;</code> that
       a click happened using the <code>onFlagChange</code> function.
       </p>
 
