@@ -451,7 +451,7 @@
       </p>
 
       <div class="idea" data-title="Idea">
-        <code>setupComponent</code> and a lot of the patters you'll see alter are used over and over throughout the codebase.
+        <code>setupComponent</code> and a lot of the patterns you'll see here are used over and over throughout the codebase.
         It would be useful to extract some of the logic to a helper library.
       </div>
 
@@ -490,7 +490,7 @@
 
       <p>
         If the way we call <a href="http://airbnb.io/enzyme/docs/api/ShallowWrapper/simulate.html"><code>simulate</code></a> confuses you check out <a href="https://github.com/airbnb/enzyme/issues/76">this discussion</a> and in particular <a href="https://github.com/airbnb/enzyme/issues/76#issuecomment-189606849">this comment</a>.
-        In a nutshell, we simulate a change event on the HTML <code>&lt;input&gt;</code> element.
+        In a nutshell, we pass a mocked event simulating the event triggered by the HTML <code>&lt;input&gt;</code> element.
       </p>
 
       <div class="info" data-title="Pro Tip">
@@ -548,7 +548,7 @@
 
       <p>
       There are two new things in the test example above. The first one is <a href="https://facebook.github.io/jest/docs/en/jest-object.html#jestspyonobject-methodname"><code>jest.spyOn</code></a>
-      that takes one method in an object and coverts it into a spy. Notice how at the end of the test <a href="https://facebook.github.io/jest/docs/en/mock-function-api.html#mockfnmockrestore"><code>mockRestore</code></a>
+      that takes one method from an object and converts it into a spy. Notice how at the end of the test <a href="https://facebook.github.io/jest/docs/en/mock-function-api.html#mockfnmockrestore"><code>mockRestore</code></a>
       is called to restore the method at its original state. If you fail to do that some of your other tests might fail.
       </p>
 
