@@ -407,15 +407,10 @@
 
       <p>
       We're running only one <a href="http://facebook.github.io/jest/docs/en/snapshot-testing.html">snapshot test</a> that checks that the component gets rendered.
-      Note how we use <code>toJson</code> to convert the Enzyme object in a string.
       </p>
 
       <div class="disclaimer" data-title="Warning">
         Snapshot tests are extremely useful to discover subtle bugs but they must be used in conjunction with other tests. Relying on snapshots only makes your tests hard to read and error prone.
-      </div>
-
-      <div class="idea" data-title="Idea">
-        It's possible to configure Enzyme to use <code>enzyme-to-json</code> automatically for all snapshots but at the moment it requires ejecting from <code>create-react-app</code>.
       </div>
 
       <p>
