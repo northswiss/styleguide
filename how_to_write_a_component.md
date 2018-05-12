@@ -1,7 +1,7 @@
 # How to Write a Component
 
-There are three main kind of components your going to work with: Presentational,
-State and Containers.
+There are three main kind of components you're going to work with:
+Presentational, State and Containers.
 
 ## Presentational Components
 
@@ -19,7 +19,7 @@ The easiest way to crate a presentational component is with
 import styled from 'styled-components'
 import { type ComponentType } from 'react'
 
-type Props = $ReadOnly<{| size: 'big' | 'small' |}>
+type Props = {| size: 'big' | 'small' |}
 
 const Button: ComponetType<Props> = styled.button.attrs({ type: 'button' })`
   background: blue;
@@ -39,7 +39,7 @@ In many cases you will need to be able to render more than just
 import React from 'react'
 import { type User } from 'types/users'
 
-type Props = $ReadyOnly<{| user: User, salute: 'Hello' | 'Hi' |}>
+type Props = {| user: User, salute: 'Hello' | 'Hi' |}
 
 function UserGreetings(props: Props) {
   return (
@@ -54,8 +54,8 @@ UserGreetings.defaultProps = { salute: 'Hello' }
 export default UserGreetings
 ```
 
-A component doesn't have to return a tag, the example before could have been
-written:
+Note that a component doesn't have to return a tag, the example before could
+have been written:
 
 ```jsx
 function UserGreetings(props: Props) {
@@ -94,9 +94,9 @@ export default App
 
 ### Routing
 
-In [React Router](https://reacttraining.com/react-router/) a router is defined
-with the `Route` component. Therefore presentational components are the best
-place to put routing logic:
+In [React Router](https://reacttraining.com/react-router/) a route is defined by
+rendering the `Route` component. Therefore presentational components are the
+best place to put routing logic:
 
 ```jsx
 // @flow
