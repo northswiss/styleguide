@@ -1,12 +1,4 @@
-# How to Write a Component
-
-There are three main kind of components you're going to work with:
-
-* [Presentational](presentational_components.md)
-* [State](state_components.md)
-* [Containers](container_components.md)
-
-## Presentational Components
+# Presentational Components
 
 Presentational components are the easiest kind and they usually make up 90% of
 your application. Ideally all they do is to render something based only of the
@@ -95,7 +87,7 @@ class App extends React.Component<Props, State> {
 export default App
 ```
 
-### Routing
+## Routing
 
 In [React Router](https://reacttraining.com/react-router/) a route is defined by
 rendering the `Route` component. Therefore presentational components are the
