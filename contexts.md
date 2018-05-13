@@ -8,10 +8,11 @@ need an easy way to access them.
 
 You could put these values in the root component `<App>` and pass them down with
 props. This often means drilling a prop several layers. What's worse, often
-times the components in between didn't care about that particular value, they
+times the components in between don't care about that particular value, they
 only "carry it over".
 
-React 16.3 introduced a new context API that we can leverage exactly for this.
+React 16.3 introduced a new [context API](https://reactjs.org/docs/context.html)
+that we can leverage exactly for this.
 
 That's how you would handle the currently logged in user:
 
@@ -27,7 +28,6 @@ import React from 'react'
 import CurrentUserContext from 'contexts/CurrentUserContext'
 import CurrentUserState from 'states/CurrentUserState'
 
-type Props = {}
 function App() {
   return (
     <CurrentUserState>
