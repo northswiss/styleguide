@@ -14,15 +14,15 @@ First, a brief recap of what render props are.
 ```jsx
 function DoubleComponent(props) {
   const double = this.props.value * 2
-  return props.render({ double })
+  return props.render( double )
 }
 
 // The following will render <div>10</div>
-;<DoubleComponent value={5} render={({ double }) => <div>{double}</div>} />
+;<DoubleComponent value={5} render={ double  => <div>{double}</div>} />
 ```
 
 So, a render property is just a prop that happens to be a function that returns
-a value that can be rendered. Of course, the prop doesn’t have to be called
+a [`Node`](https://flow.org/en/docs/react/types/#toc-react-node). Of course, the prop doesn't have to be called
 `render`. As a matter of fact, if we name the prop `children` we can do some
 neat things:
 
@@ -51,7 +51,7 @@ Of course, it does only one of the three things depending on the state. In order
 to accomplish its function `TripsList` needs to get a list of trips and a
 status. The first solution that comes to mind is to pass these data via props.
 This pattern is based on [container components](container_components.md) and is
-now deprecated. A much better solution is offer by state components.
+now deprecated. A much better solution is provided by state components.
 
 Here is how a state component for our problem would look like:
 
@@ -74,7 +74,7 @@ class TripsState extends React.Component<Props, State> {
     try {
       this.setState({ status: 'LOADING' })
       const trips = await getTrips()
-      this.setState({ status: 'READY' })
+      this.setState({ status: 'READY', trips })
     } catch (e) {
       this.setState({ status: 'ERROR' })
     }
@@ -92,17 +92,15 @@ This component provides all the information `TripsList` needs. Note that we're
 passing the whole state to `children` but we don't have to do that. In some
 cases you only want to pass a subset of the state.
 
-Let's see how we can use it:
+Let's see how we can use `TripsState`:
 
 ```jsx
 // @flow
 import React, { Fragment } from 'react'
 import TripsState from './states/TripsState'
-import { type Trip } from 'types/trips'
+import TripItem from './TripItem'
 
-type Props = {| trips: Array<Trip> |}
-
-function TripsList(props: Props) {
+function TripsList() {
   return (
     <Fragment>
       <h1>These are your trips</h1>
@@ -160,14 +158,14 @@ class TripsState extends React.Component<Props, State> {
     try {
       this.setState({ status: 'LOADING' })
       const trips = await getTrips()
-      this.setState({ status: 'READY' })
+      this.setState({ status: 'READY', trips })
     } catch (e) {
       this.setState({ status: 'ERROR' })
     }
   }
 
   handleRefreshTrips = () => {
-    loadTrips()
+    this.loadTrips()
   }
 
   render() {
@@ -181,4 +179,4 @@ class TripsState extends React.Component<Props, State> {
 export default TripsState
 ```
 
-In the same way we could have exposed a `onCreateTrip` method etc.
+In the same way we could have exposed an `onCreateTrip` method etc.
