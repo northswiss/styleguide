@@ -97,7 +97,7 @@ Let's see how we can use `TripsState`:
 ```jsx
 // @flow
 import React, { Fragment } from 'react'
-import TripsState from './states/TripsState'
+import TripsState from 'states/TripsState'
 import TripItem from './TripItem'
 
 function TripsList() {
@@ -180,3 +180,76 @@ export default TripsState
 ```
 
 In the same way we could have exposed an `onCreateTrip` method etc.
+
+## Reusing the State
+
+One of the big advantages of state components is that state logic can easily be
+reused in different parts of the application. Imagine for example, you want to
+display the total number of trips in the company page. You could do that by
+leveraging the `TripsState` component:
+
+```jsx
+// @flow
+import React, { Fragment } from 'react'
+import CompanyState from 'states/CompanyState'
+import TripsState from 'states/TripsState'
+
+function CompanyPage() {
+  return (
+    <Fragment>
+      <CompanyState>
+        {({ status, company }) =>
+          status === 'READY' ? <h1>Company: {company.name}</h1> : null
+        }
+      </CompanyState>
+      <TripsState>
+        {({ status, trips }) =>
+          status === 'READY' ? `You have ${trips.length} trips` : null
+        }
+      </TripsState>
+    </Fragment>
+  )
+}
+
+export default CompanyPage
+```
+
+Note, that every instance of `TripState` has its own state and performs a new
+fetch.
+
+## Composing States
+
+State components can interact with each other via props. We could have a
+`TripsFilterState` that holds the state of a filtering component and pass its
+result to `TripsState`:
+
+```jsx
+// @flow
+import React, { Fragment } from 'react'
+import TripsState from 'states/TripsState'
+import TripsFilterState from 'states/TripsFilterState'
+
+function TripsList() {
+  return (
+    <TripsFilterState>
+      {({ filters, onDummyFilter }) => (
+        <Fragment>
+          <input
+            type="checkbox"
+            onClick={onDummyFilter}
+            value={filters.dummy}
+          />
+          <TripsState filters={filters}>
+            {({ trips }) => 'Render the trips...'}
+          </TripsState>
+        </Fragment>
+      )}
+    </TripsFilterState>
+  )
+}
+
+export default TripsList
+```
+
+This is just an example a (probably) better approach would be to crate a
+`TripsFilter` component that holds its own state.
