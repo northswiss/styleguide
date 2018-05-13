@@ -14,17 +14,17 @@ First, a brief recap of what render props are.
 ```jsx
 function DoubleComponent(props) {
   const double = this.props.value * 2
-  return props.render( double )
+  return props.render(double)
 }
 
 // The following will render <div>10</div>
-;<DoubleComponent value={5} render={ double  => <div>{double}</div>} />
+;<DoubleComponent value={5} render={double => <div>{double}</div>} />
 ```
 
 So, a render property is just a prop that happens to be a function that returns
-a [`Node`](https://flow.org/en/docs/react/types/#toc-react-node). Of course, the prop doesn't have to be called
-`render`. As a matter of fact, if we name the prop `children` we can do some
-neat things:
+a [`Node`](https://flow.org/en/docs/react/types/#toc-react-node). Of course, the
+prop doesn't have to be called `render`. As a matter of fact, if we name the
+prop `children` we can do some neat things:
 
 ```jsx
 function DoubleComponent(props) {
