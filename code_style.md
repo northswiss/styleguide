@@ -10,8 +10,8 @@ check and run it separately in CI.
 
 Here are some advices on how to write JavaScript code so that is more readable.
 
-* Prefer `const` over `let`. Code written with constants is often more readable
-* Never use comments to describe what your program is doing. The code should be
+- Prefer `const` over `let`. Code written with constants is often more readable
+- Never use comments to describe what your program is doing. The code should be
   easy to read and understand. Comments are a useful tool to explain _why_ you
   wrote a portion of your program in a certain way but not to clarify what's
   going on in the program. Even worse, if you update your code the comments no
@@ -48,7 +48,7 @@ Here are some advices on how to write JavaScript code so that is more readable.
       	}
       	```
 
-* Learn `Array` methods, in particular
+- Learn `Array` methods, in particular
   [`filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter),
   [`find`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find),
   [`includes`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes),

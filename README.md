@@ -15,8 +15,8 @@ TravelPerk, after reading this document, you'll be able to work on our front end
 code. If that's not the case please raise your concerns with the members of your
 team.
 
-* [How to Setup a Project](setup)
-* [Folder Structure](folder_structure.md)
-* [Code Style](code_style.md)
-* [How to Write a Component](how_to_write_a_component.md)
-* [How to Test your Application](how_to_test_your_application.md)
+- [How to Setup a Project](setup)
+- [Folder Structure](folder_structure.md)
+- [Code Style](code_style.md)
+- [How to Write a Component](how_to_write_a_component.md)
+- [How to Test your Application](how_to_test_your_application.md)

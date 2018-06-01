@@ -8,5 +8,6 @@ module.exports = {
   bracketSpacing: true,
   jsxBracketSameLine: false,
   arrowParens: 'avoid',
-  parser: 'flow',
+  parser: 'markdown',
+  proseWrap:'always'
 }
