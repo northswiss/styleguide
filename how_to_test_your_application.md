@@ -111,7 +111,7 @@ describe('<NewUserProfile>', () => {
 })
 ```
 
-This is test is better than the previous one for several reasons. It's not
+This test is better than the previous one for several reasons. It's not
 testing if a user gets created by a particular method, it's testing the whole
 interaction a real user would have with the application. First it enters the
 value in an input field, then clicks on a button and lastly it checks that the
