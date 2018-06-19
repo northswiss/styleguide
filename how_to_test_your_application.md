@@ -46,7 +46,7 @@ might be rendering `null`.
 
 There are different kinds of tests that apply to different contexts but in
 general we can distinguish three main categories: end-to-end tests (sometimes
-called E2E or functional tests), integration tests and and unit tests.
+called E2E or functional tests), integration tests and unit tests.
 
 E2E are the most exhaustive because they test your application running in a real
 browser and performing real network calls. For this reason they're also the
@@ -127,7 +127,7 @@ Let's see how we could have implemented the previous test using it:
 ```jsx
 describe('<NewUserProfile>', () => {
   it('should allow to create a new user', async () => {
-    const { getByLabel, getByText } = renderIntoDocument(<NewUserProfile />)
+    const { getByLabel, getByText } = render(<NewUserProfile />)
     const emailInput = getByLabel('Email')
     emailInput.value = 'new-user@gmail.com'
     fireEvent.change(emailInput)
@@ -162,14 +162,14 @@ Back to our test, let's start by setting up our environment:
 
 ```jsx
 import React from 'react'
-import { renderIntoDocument, cleanup } from 'react-testing-library'
+import { render, cleanup } from 'react-testing-library'
 import TripList from './TripList'
 
 describe('<TripList>', () => {
   afterEach(cleanup)
 
   it('should load and show the first ten trips', () => {
-    renderIntoDocument(<TripList />)
+    render(<TripList />)
   })
 })
 ```
@@ -186,11 +186,11 @@ import { MemoryRouter as Router } from 'react-router-dom'
 
 it('should load and show the first ten trips', () => {
   const user = Fabricate('user')
-  render({ user })
+  renderTripList({ user })
 })
 
-function render({ user }) {
-  return renderIntoDocument(
+function renderTripList({ user }) {
+  return render(
     <currentUserContext.Provider value={user}>
       <IntlProvider locale={user.locale}>
         <Router>
@@ -202,8 +202,8 @@ function render({ user }) {
 }
 ```
 
-The `render` function spares us from having to write the same components chain
-for every test we write.
+The `renderTripList` function spares us from having to write the same components
+chain for every test we write.
 
 For more info about the `Fabricate` call check
 [fabricator](https://github.com/travelperk/fabricator).
@@ -218,7 +218,7 @@ it('should load and show the first ten trips', () => {
   const trips = Fabricate.times(10, 'dashboardTrip')
   mockFetchOnce({ count: 23, results: trips })
   const user = Fabricate('user')
-  render({ user })
+  renderTripList({ user })
 })
 ```
 
@@ -230,7 +230,7 @@ it('should load and show the first ten trips', () => {
   const trips = Fabricate.times(10, 'dashboardTrip')
   mockFetchOnce({ count: 23, results: trips })
   const user = Fabricate('user')
-  const { getByText } = render({ user })
+  const { getByText } = renderTripList({ user })
 
   expect(getByText('Loading...')).toBeInTheDOM()
 })
@@ -249,7 +249,7 @@ it('should load and show the first ten trips', async () => {
   const trips = Fabricate.times(10, 'dashboardTrip')
   mockFetchOnce({ count: 23, results: trips })
   const user = Fabricate('user')
-  const { getByText } = render({ user })
+  const { getByText } = renderTripList({ user })
 
   expect(getByText('Loading...')).toBeInTheDOM()
 
@@ -276,7 +276,7 @@ it('should load and show the first ten trips', async () => {
   const trips = Fabricate.times(10, 'dashboardTrip')
   mockFetchOnce({ count: 23, results: trips })
   const user = Fabricate('user')
-  const { getByText } = render({ user })
+  const { getByText } = renderTripList({ user })
 
   expect(getByText('Loading...')).toBeInTheDOM()
 
@@ -299,5 +299,5 @@ function validateTripCard({ trip, getByTestId }) {
 ```
 
 This is in a nutshell how to test the trip list. Of course, the test can be
-extended to interact with the flters, the cards and the pagination, but the
+extended to interact with the filters, the cards and the pagination, but the
 basic idea is the same.
