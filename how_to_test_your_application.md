@@ -272,6 +272,8 @@ trips.map(trip => <TripCard trip={trip} data-testid={`TripCard-${trip.id}`} />)
 We can then easily test that each card is rendered with the correct value.
 
 ```jsx
+import { within } from 'react-testing-library'
+
 it('should load and show the first ten trips', async () => {
   const trips = Fabricate.times(10, 'dashboardTrip')
   mockFetchOnce({ count: 23, results: trips })
@@ -286,7 +288,7 @@ it('should load and show the first ten trips', async () => {
 })
 
 function validateTripCard({ trip, getByTestId }) {
-  const { getByText } = getQueriesForElement(getByTestId(`TripCard-${trip.id}`))
+  const { getByText } = within(getByTestId(`TripCard-${trip.id}`))
   if (trip.status === 'booked') {
     expect(getByText('CONFIRMED')).toBeInTheDOM()
   } else if (trip.status === 'saved') {
